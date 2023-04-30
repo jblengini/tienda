@@ -20,7 +20,8 @@ export const Card = ({item}) => {
       <h2>{item?.attributes.title}</h2>
       <div>
         <div className="prices">
-          <h3>${item?.attributes?.oldprice  || item?.attributes.price+500 }</h3>
+        {item?.attributes?.oldprice> 0 && <h3 className="oldPrice">${item?.attributes?.oldprice}</h3>}
+          {/* <h3>${item?.attributes?.oldprice  || item?.attributes.price+500 }</h3> */}
           <h3>${item?.attributes.price}</h3>
         </div>
       </div>
