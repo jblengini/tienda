@@ -1,9 +1,13 @@
-import React from "react";
+//import React, { useState, useEffect } from 'react';
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
+//import axios from 'axios';
+//import { makeRequest } from '../../makeRequest';
+import useFetch from '../../hooks/useFetch';
+
 
 const FeaturedProducts = ({type}) => {
-  const data = [
+  /* const data = [
     {
       id:1,
       img: "https://images.pexels.com/photos/14115020/pexels-photo-14115020.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -37,7 +41,13 @@ const FeaturedProducts = ({type}) => {
       oldPrice: 12341,
       price:11242
     }
-  ]
+  ]; */
+  
+    const { data, loading, error } = useFetch(
+      `/products?populate=*&[filters][type][$eq]=${type}`
+    );
+  
+  
   return (
     <div className="featuredProducts">
       <div className="top">
@@ -51,9 +61,11 @@ const FeaturedProducts = ({type}) => {
         </p>
       </div>
     <div className="bottom">
-      {data.map (item=>(
-        <Card item={item} key={item.id}/>
-        ))}
+      {error
+            ? "Algo no está bien!"
+            : loading
+            ? "loading"
+            : data?.map((item) => <Card item={item} key={item.id} />)}
     </div>
   </div>
   )
